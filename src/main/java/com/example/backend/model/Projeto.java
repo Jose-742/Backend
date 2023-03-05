@@ -2,6 +2,8 @@ package com.example.backend.model;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.example.backend.common.Status;
 
@@ -10,9 +12,12 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
+import jakarta.transaction.Transactional;
 import jakarta.validation.constraints.NotBlank;
 
+@Transactional
 @Entity
 public class Projeto implements Serializable{
 	private static final long serialVersionUID = 1L;
@@ -29,9 +34,9 @@ public class Projeto implements Serializable{
 	
 	@NotBlank
 	private String resumo;
-	
-	@OneToOne
-	private Autor autor;
+
+	@OneToMany(mappedBy = "projeto")
+	private List<Autor> autores;
 	
 	@Column(name = "dt_envio", nullable = false)
 	private LocalDate dataEnvio;
@@ -42,18 +47,24 @@ public class Projeto implements Serializable{
 	@OneToOne
 	private Premio premio;
 
-	public Projeto() {}
+	public Projeto() {
+		this.autores = new ArrayList<>();
+	}
 	
-	public Projeto(Long id, String area, String titulo, String resumo, Autor autor,
+	public Projeto(Long id, String area, String titulo, String resumo, List<Autor> autores,
 			LocalDate dataEnvio, Status status, Premio premio) {
 		this.id = id;
 		this.area = area;
 		this.titulo = titulo;
 		this.resumo = resumo;
-		this.autor = autor;
+		this.autores = autores;
 		this.dataEnvio = dataEnvio;
 		this.status = status;
 		this.premio = premio;
+	}
+	
+	public void addAutor(Autor autor) {
+		autores.add(autor);
 	}
 
 	public Long getId() {
@@ -88,12 +99,12 @@ public class Projeto implements Serializable{
 		this.resumo = resumo;
 	}
 
-	public Autor getAutor() {
-		return autor;
+	public List<Autor> getAutores() {
+		return autores;
 	}
 
-	public void setAutor(Autor autor) {
-		this.autor = autor;
+	public void setAutor(List<Autor> autores) {
+		this.autores = autores;
 	}
 
 	public LocalDate getDataEnvio() {

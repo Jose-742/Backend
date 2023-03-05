@@ -2,8 +2,6 @@ package com.example.backend.model;
 
 import java.time.LocalDate;
 
-import org.hibernate.validator.constraints.Length;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.transaction.Transactional;
@@ -13,8 +11,8 @@ import jakarta.transaction.Transactional;
 public class Avaliador extends Pessoa{
 	private static final long serialVersionUID = 1L;
 
-	@Length(message = "São 11 números", max = 11, min = 11)
-	private int registro;
+	//@Length(message = "São 11 números", max = 11, min = 11)
+	private Long registro;
 	
 	@Column(name = "dt_admissao", nullable = false)
 	private LocalDate dataAdmissao;
@@ -22,17 +20,17 @@ public class Avaliador extends Pessoa{
 	public Avaliador() {}
 	
 	public Avaliador(Long id, String nome, String sobrenome, String cpf, LocalDate dataNascimento, Endereco endereco,
-			String telefone, String email,int registro, LocalDate dataAdmissao) {
+			String telefone, String email,Long registro, LocalDate dataAdmissao) {
 		super(id, nome, sobrenome, cpf, dataNascimento, endereco, telefone, email);
 		this.registro = registro;
 		this.dataAdmissao = dataAdmissao;
 	}
 
-	public int getRegistro() {
+	public Long getRegistro() {
 		return registro;
 	}
 
-	public void setRegistro(int registro) {
+	public void setRegistro(Long registro) {
 		this.registro = registro;
 	}
 
