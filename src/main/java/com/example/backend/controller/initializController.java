@@ -1,8 +1,6 @@
 package com.example.backend.controller;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -10,7 +8,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.backend.DTO.AutorDTO;
 import com.example.backend.common.Status;
 import com.example.backend.model.Autor;
 import com.example.backend.model.Avaliacao;
@@ -25,7 +22,7 @@ import com.example.backend.service.AvaliadorService;
 import com.example.backend.service.ProjetoService;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/teste")
 public class initializController {
 
 	@Autowired
@@ -40,42 +37,6 @@ public class initializController {
 	@Autowired
 	private AvaliadorService avaliadorService;
 	
-	@GetMapping("/projeto")
-	public ResponseEntity<?> projeto(){
-		// Listar projetos e autores (Geral);
-		return ResponseEntity.ok(projetoService.findAll());
-	}
-	
-	@GetMapping("/autor")
-	public ResponseEntity<?> autor(){
-		// Listar autores e projetos (Geral);
-		//autorService.findAll().forEach(a -> System.out.println("** " + a.get))
-		List<AutorDTO> autores = new ArrayList<>();
-		autorService.findAllAutorProjeto().forEach(a-> 
-			autores.add( new AutorDTO(a.getId(), a.getNome(), a.getSobrenome(), a.getCpf(), a.getDataNascimento(),a.getEndereco()
-					, a.getTelefone(), a.getEmail(), a.getProjeto()))
-		);
-		return ResponseEntity.ok(autores);
-	}
-	
-	@GetMapping("/enviado")
-	public ResponseEntity<?> enviado(){
-		// Listar projetos enviado não avaliado (visualizar dados dos projetos, inclusive autores);
-		return ResponseEntity.ok(projetoService.findByProjetoStatusEnviado());
-	}
-	
-	@GetMapping("/avaliado")
-	public ResponseEntity<?> avaliado(){
-		// Listar Projetos avaliados (visualizar dados projetos e dados da avaliação);
-		return ResponseEntity.ok(avaliacaoService.findAll());
-	}
-	
-	@GetMapping("/vencedor")
-	public ResponseEntity<?> vencedor(){
-		// Listar Projetos vencedores por ordem de notas maiores (visualizar dados projetos);
-		//return ResponseEntity.notFound().build();//Nao encontrada 404
-		return ResponseEntity.ok(avaliacaoService.findByVencedores());
-	}
 	
 	@GetMapping("/save")
 	public ResponseEntity<?> salvar(){

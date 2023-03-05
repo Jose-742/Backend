@@ -9,7 +9,7 @@ import com.example.backend.model.Avaliacao;
 
 public interface AvaliacaoRepository extends JpaRepository<Avaliacao, Long>{
 
-	@Query("select a from Avaliacao a where a.nota > 6.0")
+	@Query("SELECT a FROM Avaliacao a WHERE a.nota > 6.0 ORDER BY a.nota DESC")
 	List<Avaliacao> findByVencedores();
 
 }

@@ -5,7 +5,7 @@ import java.time.LocalDate;
 import com.example.backend.model.Endereco;
 import com.example.backend.model.Projeto;
 
-public class AutorDTO {
+public class AutorProjetoDTO {
     private Long id;
 	private String nome;
 	private String sobrenome;
@@ -17,7 +17,7 @@ public class AutorDTO {
 	private Projeto projeto;
 	
 	
-	public AutorDTO(Long id, String nome, String sobrenome, String cpf, LocalDate dataNascimento, Endereco endereco,
+	public AutorProjetoDTO(Long id, String nome, String sobrenome, String cpf, LocalDate dataNascimento, Endereco endereco,
 			String telefone, String email, Projeto projeto) {
 		this.id = id;
 		this.nome = nome;
