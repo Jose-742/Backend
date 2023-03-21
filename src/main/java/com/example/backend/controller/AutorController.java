@@ -6,10 +6,12 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.backend.DTO.AutorProjetoDTO;
+import com.example.backend.model.Autor;
 import com.example.backend.service.AutorService;
 
 @RestController
@@ -29,5 +31,12 @@ public class AutorController {
 					, a.getTelefone(), a.getEmail(), a.getProjeto()))
 		);
 		return ResponseEntity.ok(autores);
+	}
+	
+	@PostMapping
+	public ResponseEntity<?> save(Autor autor){
+		System.out.println(autor.toString());
+		
+		return ResponseEntity.ok().build();
 	}
 }

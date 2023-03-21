@@ -122,4 +122,10 @@ public abstract class Pessoa implements Serializable{
 	public void setEmail(String email) {
 		this.email = email;
 	}
+
+	@Override
+	public String toString() {
+		return "Pessoa [id=" + id + ", nome=" + nome + ", sobrenome=" + sobrenome + ", cpf=" + cpf + ", dataNascimento="
+				+ dataNascimento + ", endereco=" + endereco + ", telefone=" + telefone + ", email=" + email + "]";
+	}
 }
