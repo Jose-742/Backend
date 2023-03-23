@@ -34,8 +34,12 @@ public class Avaliacao implements Serializable {
 	
 	@Column(name = "dt_avaliacao", nullable = false)
 	private LocalDate dataAvaliacao;
+	
+	private boolean excluido = false; 
 
-	public Avaliacao() {}
+	public Avaliacao() {
+		this.dataAvaliacao = LocalDate.now();
+	}
 	
 	public Avaliacao(Long id, Projeto projeto, Avaliador avaliador,String parecer, double nota,
 			LocalDate dataAvaliacao) {
@@ -93,5 +97,13 @@ public class Avaliacao implements Serializable {
 
 	public void setDataAvaliacao(LocalDate dataAvaliacao) {
 		this.dataAvaliacao = dataAvaliacao;
+	}
+
+	public boolean getExcluido() {
+		return excluido;
+	}
+
+	public void setExcluido(boolean excluido) {
+		this.excluido = excluido;
 	}
 }

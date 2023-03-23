@@ -2,6 +2,7 @@ package com.example.backend.DTO;
 
 import java.time.LocalDate;
 
+import com.example.backend.model.Avaliacao;
 import com.example.backend.model.Projeto;
 
 public class AvaliacaoVencedorDTO {
@@ -12,12 +13,12 @@ public class AvaliacaoVencedorDTO {
 	private double nota;
 	private LocalDate dataAvaliacao;
 	
-	public AvaliacaoVencedorDTO(Long id, Projeto projeto, String parecer, double nota, LocalDate dataAvaliacao) {
-		this.id = id;
-		this.projeto = projeto;
-		this.parecer = parecer;
-		this.nota = nota;
-		this.dataAvaliacao = dataAvaliacao;
+	public AvaliacaoVencedorDTO(Avaliacao avaliacao) {
+		this.id = avaliacao.getId();
+		this.projeto = avaliacao.getProjeto();
+		this.parecer = avaliacao.getParecer();
+		this.nota = avaliacao.getNota();
+		this.dataAvaliacao = avaliacao.getDataAvaliacao();
 	}
 
 	public Long getId() {

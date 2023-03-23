@@ -2,14 +2,18 @@ package com.example.backend.model;
 
 import java.io.Serializable;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToOne;
-import jakarta.validation.constraints.NotBlank;
+import jakarta.transaction.Transactional;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
+@Transactional
 public class Premio implements Serializable{
 	private static final long serialVersionUID = 1L;
 
@@ -17,22 +21,25 @@ public class Premio implements Serializable{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@NotBlank
+	@NotNull
 	private String nome;
 	
-	@NotBlank
+	@NotNull
 	private String descricao;
 	
-	@OneToOne
+	@Valid
+	@OneToOne(cascade = CascadeType.ALL)
 	private Cronograma cronograma;
 	
-	@NotBlank
-	private int ano;
+	@NotNull
+	private Integer ano;
+	
+	private boolean excluido = false; 
 
 	public Premio() {}
 	
 	public Premio(Long id, String nome, String descricao, Cronograma cronograma,
-			  int ano) {
+			Integer ano) {
 		this.id = id;
 		this.nome = nome;
 		this.descricao = descricao;
@@ -72,11 +79,25 @@ public class Premio implements Serializable{
 		this.cronograma = cronograma;
 	}
 
-	public int getAno() {
+	public Integer getAno() {
 		return ano;
 	}
 
-	public void setAno(int ano) {
+	public void setAno(Integer ano) {
 		this.ano = ano;
+	}
+	
+	public boolean getExcluido() {
+		return excluido;
+	}
+
+	public void setExcluido(boolean excluido) {
+		this.excluido = excluido;
+	}
+
+	@Override
+	public String toString() {
+		return "Premio [id=" + id + ", nome=" + nome + ", descricao=" + descricao + ", cronograma=" + cronograma
+				+ ", ano=" + ano + "]";
 	}
 }

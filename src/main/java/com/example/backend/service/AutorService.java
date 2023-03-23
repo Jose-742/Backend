@@ -18,11 +18,19 @@ public class AutorService {
 		repository.save(autor);
 	}
 	
-	public List<Autor> findAll(){
-		return repository.findAll();
+	public void update(Autor autor) {
+		repository.save(autor);
 	}
 	
-	public List<Autor> findAllAutorProjeto(){
-		return repository.findAllAutorProjeto();
+	public Autor findById(Long id) {
+		return repository.findById(id).orElse(null);
+	}
+	
+	public void delete(Autor autor) {
+		repository.save(autor);
+	}
+	
+	public List<Autor> findAll(){
+		return repository.findByExcluidoFalse();
 	}
 }

@@ -2,11 +2,11 @@ package com.example.backend.DTO;
 
 import java.time.LocalDate;
 
-import com.example.backend.model.Autor;
+import com.example.backend.model.Avaliador;
 import com.example.backend.model.Endereco;
 
-public class AutorProjetoDTO {
-    private Long id;
+public class AvaliadorDTO {
+	private Long id;
 	private String nome;
 	private String sobrenome;
 	private String cpf;
@@ -14,21 +14,20 @@ public class AutorProjetoDTO {
 	private Endereco endereco;
 	private String telefone;
 	private String email;
-	private ProjetoDTO projetoDTO;
-	
-	
-	public AutorProjetoDTO(Autor autor) {
-		this.id = autor.getId();
-		this.nome = autor.getNome();
-		this.sobrenome = autor.getSobrenome();
-		this.cpf = autor.getCpf();
-		this.dataNascimento = autor.getDataNascimento();
-		this.endereco = autor.getEndereco();
-		this.telefone = autor.getTelefone();
-		this.email = autor.getEmail();
-		this.projetoDTO = new ProjetoDTO(autor.getProjeto());
+	private Long registro;
+	private LocalDate dataAdmissao;
+	public AvaliadorDTO(Avaliador avaliador) {
+		this.id = avaliador.getId();
+		this.nome = avaliador.getNome();
+		this.sobrenome = avaliador.getSobrenome();
+		this.cpf = avaliador.getCpf();
+		this.dataNascimento = avaliador.getDataNascimento();
+		this.endereco = avaliador.getEndereco();
+		this.telefone = avaliador.getTelefone();
+		this.email = avaliador.getEmail();
+		this.registro = avaliador.getRegistro();
+		this.dataAdmissao = avaliador.getDataAdmissao();
 	}
-	
 	public Long getId() {
 		return id;
 	}
@@ -77,10 +76,16 @@ public class AutorProjetoDTO {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public ProjetoDTO getProjeto() {
-		return projetoDTO;
+	public Long getRegistro() {
+		return registro;
 	}
-	public void setProjeto(ProjetoDTO projeto) {
-		this.projetoDTO = projeto;
+	public void setRegistro(Long registro) {
+		this.registro = registro;
+	}
+	public LocalDate getDataAdmissao() {
+		return dataAdmissao;
+	}
+	public void setDataAdmissao(LocalDate dataAdmissao) {
+		this.dataAdmissao = dataAdmissao;
 	}
 }

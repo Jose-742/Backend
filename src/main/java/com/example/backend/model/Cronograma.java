@@ -8,7 +8,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 public class Cronograma implements Serializable{
@@ -18,15 +18,17 @@ public class Cronograma implements Serializable{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
+	@NotNull
 	@Column(name = "dt_inicio", nullable = false)
 	private LocalDate dataInicio;
 	
-	@NotBlank
+	@NotNull
 	private String descricao;
 	
+	@NotNull
 	@Column(name = "dt_fim", nullable = false)
 	private LocalDate dataFim;
-
+	
 	public Cronograma() {}
 	
 	public Cronograma(Long id, LocalDate dataInicio, String descricao, LocalDate dataFim) {

@@ -13,6 +13,8 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Inheritance;
 import jakarta.persistence.InheritanceType;
 import jakarta.persistence.OneToOne;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
@@ -24,26 +26,35 @@ public abstract class Pessoa implements Serializable{
 	@GenericGenerator(name = "inc", strategy = "increment")
 	private Long id;
 	
+	@NotNull
 	@Column(name = "nome", nullable = false, length = 30)
 	private String nome;
 	
+	@NotNull
 	@Column(name = "sobrenome", nullable = false, length = 50)
 	private String sobrenome;
 	
+	@NotNull
 	@Column(name = "cpf", nullable = false, length = 14)
 	private String cpf;
 	
+	@NotNull
 	@Column(name = "dt_nascimento", nullable = false)
 	private LocalDate dataNascimento;
 	
+	@Valid
 	@OneToOne(cascade = CascadeType.ALL)
 	private Endereco endereco;
 	
+	@NotNull
 	@Column(name = "telefone", nullable = false)
 	private String telefone;
 	
+	@NotNull
 	@Column(name = "email", nullable = false)
 	private String email;
+	
+	private boolean excluido = false; 
 
 	public Pessoa() {}
 	
@@ -121,6 +132,14 @@ public abstract class Pessoa implements Serializable{
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public boolean isExcluido() {
+		return excluido;
+	}
+
+	public void setExcluido(boolean excluido) {
+		this.excluido = excluido;
 	}
 
 	@Override

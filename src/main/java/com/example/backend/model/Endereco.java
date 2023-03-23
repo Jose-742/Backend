@@ -6,7 +6,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 public class Endereco implements Serializable{
@@ -16,19 +16,19 @@ public class Endereco implements Serializable{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@NotBlank
+	@NotNull
 	private String cep;
 	
-	@NotBlank
+	@NotNull
 	private String logradouro;
 	
-	@NotBlank
+	@NotNull
 	private String bairro;
 	
-	@NotBlank
+	@NotNull
 	private String localidade;
 	
-	@NotBlank
+	@NotNull
 	private String uf;
 	
 	public Endereco() {}

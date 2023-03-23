@@ -41,14 +41,17 @@ public class Projeto implements Serializable{
 	@Column(name = "dt_envio", nullable = false)
 	private LocalDate dataEnvio;
 	
-	
 	private Status status;
 	
 	@OneToOne
 	private Premio premio;
+	
+	private boolean excluido = false; 
 
 	public Projeto() {
 		this.autores = new ArrayList<>();
+		this.status = Status.ENVIADO;
+		this.dataEnvio = LocalDate.now();
 	}
 	
 	public Projeto(Long id, String area, String titulo, String resumo, List<Autor> autores,
@@ -129,5 +132,17 @@ public class Projeto implements Serializable{
 
 	public void setPremio(Premio premio) {
 		this.premio = premio;
+	}
+
+	public boolean getExcluido() {
+		return excluido;
+	}
+
+	public void setExcluido(boolean excluido) {
+		this.excluido = excluido;
+	}
+
+	public void setAutores(List<Autor> autores) {
+		this.autores = autores;
 	}
 }

@@ -1,30 +1,32 @@
 package com.example.backend.DTO;
 
 import java.time.LocalDate;
-import java.util.List;
 
 import com.example.backend.common.Status;
-import com.example.backend.model.Autor;
 import com.example.backend.model.Premio;
 import com.example.backend.model.Projeto;
 
-public class ProjetoAutorDTO {
-	
+public class ProjetoDTO {
+
 	private Long id;
-	private String area;
-	private String titulo;
-	private String resumo;
-	private List<Autor> autores;
-	private LocalDate dataEnvio;
-	private Status status;
-	private Premio premio;
 	
-	public ProjetoAutorDTO(Projeto projeto) {
+	private String area;
+	
+	private String titulo;
+	
+	private String resumo;
+	
+	private LocalDate dataEnvio;
+	
+	private Status status;
+	
+	private Premio premio;
+
+	public ProjetoDTO(Projeto projeto) {
 		this.id = projeto.getId();
 		this.area = projeto.getArea();
 		this.titulo = projeto.getTitulo();
 		this.resumo = projeto.getResumo();
-		this.autores = projeto.getAutores();
 		this.dataEnvio = projeto.getDataEnvio();
 		this.status = projeto.getStatus();
 		this.premio = projeto.getPremio();
@@ -60,14 +62,6 @@ public class ProjetoAutorDTO {
 
 	public void setResumo(String resumo) {
 		this.resumo = resumo;
-	}
-
-	public List<Autor> getAutores() {
-		return autores;
-	}
-
-	public void setAutores(List<Autor> autores) {
-		this.autores = autores;
 	}
 
 	public LocalDate getDataEnvio() {

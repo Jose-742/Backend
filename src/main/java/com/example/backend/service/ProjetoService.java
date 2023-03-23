@@ -8,14 +8,26 @@ import org.springframework.stereotype.Service;
 import com.example.backend.model.Projeto;
 import com.example.backend.repository.ProjetoRepository;
 
+import jakarta.transaction.Transactional;
+
 @Service
 public class ProjetoService {
 
 	@Autowired
 	private ProjetoRepository repository;
 	
+	@Transactional
 	public void save(Projeto projeto) {
 		repository.save(projeto);
+	}
+	
+	@Transactional
+	public void update(Projeto projeto) {
+		repository.save(projeto);
+	}
+	
+	public Projeto findById(Long id) {
+		return repository.findById(id).orElse(null);
 	}
 	
 	public List<Projeto> findByProjetoStatusEnviado(){
@@ -23,6 +35,10 @@ public class ProjetoService {
 	}
 	
 	public List<Projeto> findAll(){
-		return repository.findAll();
+		return repository.findByExcluidoFalse();
+	}
+
+	public void delete(Projeto projeto) {
+		repository.save(projeto);		
 	}
 }

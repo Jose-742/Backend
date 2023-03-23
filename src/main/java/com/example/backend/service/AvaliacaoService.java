@@ -19,8 +19,20 @@ public class AvaliacaoService {
 		repository.save(avaliacao);
 	}
 	
+	public void update(Avaliacao avaliacao) {
+		repository.save(avaliacao);
+	}
+	
+	public Avaliacao findById(Long id) {
+		return repository.findById(id).orElse(null);
+	}
+	
+	public void delete(Avaliacao avaliacao) {
+		repository.save(avaliacao);
+	}
+	
 	public List<Avaliacao> findAll(){
-		return repository.findAll();
+		return repository.findByExcluidoFalse();
 	}
 	
 	public List<Avaliacao> findByVencedores(){

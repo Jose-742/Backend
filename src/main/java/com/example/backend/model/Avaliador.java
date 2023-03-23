@@ -5,19 +5,24 @@ import java.time.LocalDate;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.transaction.Transactional;
+import jakarta.validation.constraints.NotNull;
 
 @Transactional
 @Entity
 public class Avaliador extends Pessoa{
 	private static final long serialVersionUID = 1L;
 
-	//@Length(message = "São 11 números", max = 11, min = 11)
+	@NotNull
 	private Long registro;
 	
 	@Column(name = "dt_admissao", nullable = false)
 	private LocalDate dataAdmissao;
 
-	public Avaliador() {}
+	private boolean excluido = false; 
+	
+	public Avaliador() {
+		this.dataAdmissao = LocalDate.now();
+	}
 	
 	public Avaliador(Long id, String nome, String sobrenome, String cpf, LocalDate dataNascimento, Endereco endereco,
 			String telefone, String email,Long registro, LocalDate dataAdmissao) {
@@ -40,5 +45,13 @@ public class Avaliador extends Pessoa{
 
 	public void setDataAdmissao(LocalDate dataAdmissao) {
 		this.dataAdmissao = dataAdmissao;
+	}
+
+	public boolean getExcluido() {
+		return excluido;
+	}
+
+	public void setExcluido(boolean excluido) {
+		this.excluido = excluido;
 	}
 }

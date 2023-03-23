@@ -10,6 +10,8 @@ import com.example.backend.model.Projeto;
 public interface ProjetoRepository extends JpaRepository<Projeto, Long>{
 
 	
-	@Query("select p from Projeto p where p.status = 0")
+	@Query("select p from Projeto p where p.excluido = false and p.status = 0")
 	List<Projeto> findByProjetoStatusEnviado();
+
+	List<Projeto> findByExcluidoFalse();
 }
