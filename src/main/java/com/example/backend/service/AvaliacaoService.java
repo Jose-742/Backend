@@ -11,10 +11,9 @@ import com.example.backend.repository.AvaliacaoRepository;
 @Service
 public class AvaliacaoService {
 
-	
 	@Autowired
 	private AvaliacaoRepository repository;
-	
+		
 	public void save(Avaliacao avaliacao) {
 		repository.save(avaliacao);
 	}
@@ -24,7 +23,7 @@ public class AvaliacaoService {
 	}
 	
 	public Avaliacao findById(Long id) {
-		return repository.findById(id).orElse(null);
+		return repository.findByIdExcluidoFalse(id);
 	}
 	
 	public void delete(Avaliacao avaliacao) {

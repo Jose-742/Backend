@@ -51,7 +51,7 @@ public class AutorController {
 		return ResponseEntity.ok().build();
 	}
 
-	@DeleteMapping("/{id}")
+	@DeleteMapping("/delete/{id}")
 	public ResponseEntity<Autor> delete(@PathVariable Long id) {
 		Autor autor = autorService.findById(id);
 		if (autor == null) 
@@ -66,8 +66,6 @@ public class AutorController {
 		Autor autor = autorService.findById(id);
 		if (autor == null) 
 			return ResponseEntity.status(404).build();
-		autor.setExcluido(true);
-		autorService.delete(autor);
 		return ResponseEntity.ok(autor);
 	}
 }

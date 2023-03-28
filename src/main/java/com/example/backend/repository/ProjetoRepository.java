@@ -14,4 +14,7 @@ public interface ProjetoRepository extends JpaRepository<Projeto, Long>{
 	List<Projeto> findByProjetoStatusEnviado();
 
 	List<Projeto> findByExcluidoFalse();
+
+	@Query("SELECT p FROM Projeto p WHERE p.excluido = false and p.id = :id")
+	Projeto findByIdExcluidoFalse(Long id);
 }

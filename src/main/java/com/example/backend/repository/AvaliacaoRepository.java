@@ -14,4 +14,7 @@ public interface AvaliacaoRepository extends JpaRepository<Avaliacao, Long>{
 
 	List<Avaliacao> findByExcluidoFalse();
 
+	@Query("SELECT a FROM Avaliacao a WHERE a.excluido = false and a.id = :id")
+	Avaliacao findByIdExcluidoFalse(Long id);
+
 }

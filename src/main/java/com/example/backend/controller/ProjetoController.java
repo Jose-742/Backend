@@ -16,7 +16,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.backend.DTO.ProjetoAutorDTO;
+import com.example.backend.model.Autor;
 import com.example.backend.model.Projeto;
+import com.example.backend.service.AutorService;
 import com.example.backend.service.ProjetoService;
 
 import jakarta.validation.Valid;
@@ -27,6 +29,9 @@ public class ProjetoController {
 
 	@Autowired
 	private ProjetoService projetoService;
+	
+	@Autowired
+	private AutorService autorService;
 	
 	@GetMapping
 	public ResponseEntity<List<ProjetoAutorDTO> > listarProjetosAutores(){
@@ -46,6 +51,12 @@ public class ProjetoController {
 	public ResponseEntity<?> save(@Valid @RequestBody Projeto projeto, BindingResult result){
 		if(result.hasErrors())
 			return ResponseEntity.status(422).build();
+		List<Autor> autores = new ArrayList<>();
+		projeto.getAutores().forEach(a -> {	
+			Autor autor = autorService.findById(a.getId());
+			autor.setProjeto(projeto);
+			autores.add(autor);});
+		projeto.setAutor(autores);
 		projetoService.save(projeto);
 		return ResponseEntity.status(201).build();
 	}
@@ -54,6 +65,11 @@ public class ProjetoController {
 	public ResponseEntity<?> update(@Valid @RequestBody Projeto projeto, BindingResult result){
 		if(result.hasErrors())
 			return ResponseEntity.status(422).build();
+		List<Autor> autores = new ArrayList<>();
+		projeto.getAutores().forEach(a -> {	
+			Autor autor = autorService.findById(a.getId());
+			autor.setProjeto(projeto);
+			autores.add(autor);});
 		projetoService.update(projeto);
 		return ResponseEntity.ok().build();
 	}
@@ -66,7 +82,7 @@ public class ProjetoController {
 		return ResponseEntity.ok(projeto);
 	}
 	
-	@DeleteMapping("/{id}")
+	@DeleteMapping("/delete/{id}")
 	public ResponseEntity<?> delete(@PathVariable Long id){
 		Projeto projeto = projetoService.findById(id);
 		if(projeto == null)

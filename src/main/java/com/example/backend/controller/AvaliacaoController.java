@@ -19,7 +19,12 @@ import com.example.backend.DTO.AvaliacaoDTO;
 import com.example.backend.DTO.AvaliacaoVencedorDTO;
 import com.example.backend.common.Status;
 import com.example.backend.model.Avaliacao;
+import com.example.backend.model.Avaliador;
+import com.example.backend.model.Projeto;
 import com.example.backend.service.AvaliacaoService;
+import com.example.backend.service.AvaliadorService;
+import com.example.backend.service.PremioService;
+import com.example.backend.service.ProjetoService;
 
 import jakarta.validation.Valid;
 
@@ -29,7 +34,16 @@ public class AvaliacaoController {
 
 	@Autowired
 	private AvaliacaoService avaliacaoService;
+	
+	@Autowired
+	private ProjetoService projetoService;
+	
+	@Autowired
+	private AvaliadorService avaliadorService;
 		
+	@Autowired
+	private PremioService premioService;
+	
 	@GetMapping
 	public ResponseEntity<List<AvaliacaoDTO>> listarAvaliados(){
 		List<AvaliacaoDTO> avaliacoes = new ArrayList<>();
@@ -48,7 +62,13 @@ public class AvaliacaoController {
 	public ResponseEntity<?> save(@Valid @RequestBody Avaliacao avaliacao, BindingResult result){
 		if(result.hasErrors())
 			return ResponseEntity.status(422).build();
-		avaliacao.getProjeto().setStatus(Status.AVALIADO);
+		Avaliador avaliador = avaliadorService.findById(avaliacao.getAvaliador().getId());
+		Projeto projeto = projetoService.findById(avaliacao.getProjeto().getId());
+		projeto.setStatus(Status.AVALIADO);
+		if(avaliacao.getNota() >= 6)
+			projeto.setPremio(premioService.findById(1L));	
+		avaliacao.setProjeto(projeto);
+		avaliacao.setAvaliador(avaliador);
 		avaliacaoService.save(avaliacao);
 		return ResponseEntity.status(201).build();
 	}
@@ -57,6 +77,15 @@ public class AvaliacaoController {
 	public ResponseEntity<?> update(@Valid @RequestBody Avaliacao avaliacao, BindingResult result){
 		if(result.hasErrors())
 			return ResponseEntity.status(422).build();
+		Avaliador avaliador = avaliadorService.findById(avaliacao.getAvaliador().getId());
+		Projeto projeto = projetoService.findById(avaliacao.getProjeto().getId());
+		projeto.setStatus(Status.AVALIADO);
+		if(avaliacao.getNota() >= 6)
+			projeto.setPremio(premioService.findById(1L));	
+		else
+			projeto.setPremio(null);
+		avaliacao.setProjeto(projeto);
+		avaliacao.setAvaliador(avaliador);
 		avaliacaoService.update(avaliacao);
 		return ResponseEntity.status(201).build();
 	}
@@ -69,7 +98,7 @@ public class AvaliacaoController {
 		return ResponseEntity.ok(avaliacao);
 	}
 	
-	@DeleteMapping("/{id}")
+	@DeleteMapping("delete/{id}")
 	public ResponseEntity<?> delete(@PathVariable Long id){
 		Avaliacao avaliacao = avaliacaoService.findById(id);
 		if(avaliacao == null)

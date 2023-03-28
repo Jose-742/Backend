@@ -23,7 +23,7 @@ public class PremioService {
 	}
 	
 	public Premio findById(Long id) {
-		return repository.findById(id).orElse(null);
+		return repository.findByIdExcluidoFalse(id);
 	}
 	
 	public List<Premio> findAll(){

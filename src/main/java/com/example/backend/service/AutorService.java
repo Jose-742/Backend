@@ -23,7 +23,7 @@ public class AutorService {
 	}
 	
 	public Autor findById(Long id) {
-		return repository.findById(id).orElse(null);
+		return repository.findByIdExcluidoFalse(id);
 	}
 	
 	public void delete(Autor autor) {

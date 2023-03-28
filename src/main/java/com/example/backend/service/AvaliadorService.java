@@ -23,7 +23,7 @@ public class AvaliadorService {
 	}
 	
 	public Avaliador  findById(Long id) {
-		return repository.findById(id).orElse(null);
+		return repository.findByIdExcluidoFalse(id);
 	}
 	
 	public void delete(Avaliador avaliador) {

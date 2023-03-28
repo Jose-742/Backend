@@ -27,7 +27,7 @@ public class ProjetoService {
 	}
 	
 	public Projeto findById(Long id) {
-		return repository.findById(id).orElse(null);
+		return repository.findByIdExcluidoFalse(id);
 	}
 	
 	public List<Projeto> findByProjetoStatusEnviado(){

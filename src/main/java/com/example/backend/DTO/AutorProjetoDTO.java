@@ -26,7 +26,8 @@ public class AutorProjetoDTO {
 		this.endereco = autor.getEndereco();
 		this.telefone = autor.getTelefone();
 		this.email = autor.getEmail();
-		this.projetoDTO = new ProjetoDTO(autor.getProjeto());
+		if(autor.getProjeto() != null)
+			this.projetoDTO = new ProjetoDTO(autor.getProjeto());
 	}
 	
 	public Long getId() {

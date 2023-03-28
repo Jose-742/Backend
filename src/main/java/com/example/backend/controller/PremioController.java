@@ -52,7 +52,7 @@ public class PremioController {
 		return ResponseEntity.ok().build();
 	}
 	
-	@DeleteMapping("/{id}")
+	@DeleteMapping("/delete/{id}")
 	public ResponseEntity<?> delete(@PathVariable Long id){
 		Premio premio = premioService.findById(id);
 		if(premio == null)
