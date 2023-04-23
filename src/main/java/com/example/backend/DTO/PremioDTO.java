@@ -13,6 +13,8 @@ public class PremioDTO {
 
 	private Cronograma cronograma;
 	
+	private Integer ano;
+	
 	public PremioDTO() {
 		
 	}
@@ -22,6 +24,7 @@ public class PremioDTO {
 		this.nome = premio.getNome();
 		this.descricao = premio.getDescricao();
 		this.cronograma = premio.getCronograma();
+		this.ano = premio.getAno();
 	}
 
 	public Long getId() {
@@ -54,5 +57,13 @@ public class PremioDTO {
 
 	public void setCronograma(Cronograma cronograma) {
 		this.cronograma = cronograma;
+	}
+
+	public Integer getAno() {
+		return ano;
+	}
+
+	public void setAno(Integer ano) {
+		this.ano = ano;
 	}
 }
