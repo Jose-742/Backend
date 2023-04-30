@@ -27,15 +27,15 @@ public abstract class Pessoa implements Serializable{
 	@GenericGenerator(name = "inc", strategy = "increment")
 	private Long id;
 	
-	@NotNull
+	@NotNull @NotBlank
 	@Column(name = "nome", nullable = false, length = 30)
 	private String nome;
 	
-	@NotNull
+	@NotNull @NotBlank
 	@Column(name = "sobrenome", nullable = false, length = 50)
 	private String sobrenome;
 	
-	@NotNull
+	@NotNull @NotBlank
 	@Column(name = "cpf", nullable = false, length = 14)
 	private String cpf;
 	
@@ -51,7 +51,7 @@ public abstract class Pessoa implements Serializable{
 	@Column(name = "telefone", nullable = false)
 	private String telefone;
 	
-	@NotNull
+	@NotNull @NotBlank
 	@Column(name = "email", nullable = false)
 	private String email;
 	

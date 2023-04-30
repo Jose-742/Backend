@@ -51,6 +51,14 @@ public class AutorController {
 		return ResponseEntity.ok().build();
 	}
 
+	@GetMapping("/{id}")
+	public ResponseEntity<Autor> findById(@PathVariable Long id) {
+		Autor autor = autorService.findById(id);
+		if (autor == null) 
+			return ResponseEntity.status(404).build();
+		return ResponseEntity.ok(autor);
+	}
+	
 	@DeleteMapping("/delete/{id}")
 	public ResponseEntity<Autor> delete(@PathVariable Long id) {
 		Autor autor = autorService.findById(id);
@@ -58,14 +66,6 @@ public class AutorController {
 			return ResponseEntity.status(404).build();
 		autor.setExcluido(true);
 		autorService.delete(autor);
-		return ResponseEntity.ok(autor);
-	}
-
-	@GetMapping("/{id}")
-	public ResponseEntity<Autor> findById(@PathVariable Long id) {
-		Autor autor = autorService.findById(id);
-		if (autor == null) 
-			return ResponseEntity.status(404).build();
-		return ResponseEntity.ok(autor);
+		return ResponseEntity.status(204).build();
 	}
 }
