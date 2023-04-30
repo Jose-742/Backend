@@ -59,12 +59,12 @@ public class AvaliadorController {
 	}
 	
 	@DeleteMapping("/delete/{id}")
-	public ResponseEntity<Avaliador> delete(@PathVariable Long id) {
+	public ResponseEntity<?> delete(@PathVariable Long id) {
 		Avaliador avaliador = avaliadorService.findById(id);
 		if (avaliador == null) 
 			return ResponseEntity.status(404).build();
 		avaliador.setExcluido(true);
 		avaliadorService.delete(avaliador);
-		return ResponseEntity.status(201).build();
+		return ResponseEntity.status(204).build();
 	}
 }

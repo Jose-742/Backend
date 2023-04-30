@@ -17,8 +17,6 @@ public class Avaliador extends Pessoa{
 	
 	@Column(name = "dt_admissao", nullable = false)
 	private LocalDate dataAdmissao;
-
-	private boolean excluido = false; 
 	
 	public Avaliador() {
 		this.dataAdmissao = LocalDate.now();
@@ -45,13 +43,5 @@ public class Avaliador extends Pessoa{
 
 	public void setDataAdmissao(LocalDate dataAdmissao) {
 		this.dataAdmissao = dataAdmissao;
-	}
-
-	public boolean getExcluido() {
-		return excluido;
-	}
-
-	public void setExcluido(boolean excluido) {
-		this.excluido = excluido;
 	}
 }

@@ -14,6 +14,7 @@ import jakarta.persistence.Inheritance;
 import jakarta.persistence.InheritanceType;
 import jakarta.persistence.OneToOne;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
 @Entity
@@ -46,7 +47,7 @@ public abstract class Pessoa implements Serializable{
 	@OneToOne(cascade = CascadeType.ALL)
 	private Endereco endereco;
 	
-	@NotNull
+	@NotNull @NotBlank
 	@Column(name = "telefone", nullable = false)
 	private String telefone;
 	
