@@ -16,6 +16,7 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.transaction.Transactional;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
 
 @Transactional
 @Entity
@@ -35,6 +36,7 @@ public class Projeto implements Serializable{
 	@NotBlank
 	private String resumo;
 
+	@NotEmpty
 	@OneToMany(mappedBy = "projeto")
 	private List<Autor> autores;
 	

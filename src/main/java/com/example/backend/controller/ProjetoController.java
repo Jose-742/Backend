@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -51,11 +52,7 @@ public class ProjetoController {
 	public ResponseEntity<?> save(@Valid @RequestBody Projeto projeto, BindingResult result){
 		if(result.hasErrors())
 			return ResponseEntity.status(422).build();
-		List<Autor> autores = new ArrayList<>();
-		projeto.getAutores().forEach(a -> {	
-			Autor autor = autorService.findById(a.getId());
-			autor.setProjeto(projeto);
-			autores.add(autor);});
+		List<Autor> autores =autorService.vincularAutorProjeto(projeto);	
 		projeto.setAutor(autores);
 		projetoService.save(projeto);
 		return ResponseEntity.status(201).build();
@@ -65,11 +62,9 @@ public class ProjetoController {
 	public ResponseEntity<?> update(@Valid @RequestBody Projeto projeto, BindingResult result){
 		if(result.hasErrors())
 			return ResponseEntity.status(422).build();
-		List<Autor> autores = new ArrayList<>();
-		projeto.getAutores().forEach(a -> {	
-			Autor autor = autorService.findById(a.getId());
-			autor.setProjeto(projeto);
-			autores.add(autor);});
+		autorService.cleanIdProjeto(projeto.getId());
+		List<Autor> autores = autorService.vincularAutorProjeto(projeto);
+		projeto.setAutores(autores);
 		projetoService.update(projeto);
 		return ResponseEntity.ok().build();
 	}
@@ -84,11 +79,7 @@ public class ProjetoController {
 	
 	@DeleteMapping("/delete/{id}")
 	public ResponseEntity<?> delete(@PathVariable Long id){
-		Projeto projeto = projetoService.findById(id);
-		if(projeto == null)
-			return ResponseEntity.status(404).build();
-		projeto.setExcluido(true);
-		projetoService.delete(projeto);
-		return ResponseEntity.status(204).build();
+		HttpStatus status = projetoService.delete(id);
+		return ResponseEntity.status(status).build();
 	}
 }

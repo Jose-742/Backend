@@ -3,6 +3,7 @@ package com.example.backend.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import com.example.backend.model.Projeto;
@@ -38,7 +39,12 @@ public class ProjetoService {
 		return repository.findByExcluidoFalse();
 	}
 
-	public void delete(Projeto projeto) {
-		repository.save(projeto);		
+	public HttpStatus delete(Long id) {
+		Projeto projeto = findById(id);
+		if(projeto == null)
+			return HttpStatus.NOT_FOUND;
+		projeto.setExcluido(true);
+		repository.save(projeto);	
+		return HttpStatus.OK;
 	}
 }
