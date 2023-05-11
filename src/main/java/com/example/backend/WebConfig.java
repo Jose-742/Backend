@@ -10,7 +10,7 @@ public class WebConfig implements WebMvcConfigurer{
 	@Override
 	public void addCorsMappings(CorsRegistry registry) {
 		 registry.addMapping("/**")
-	        .allowedOrigins("http://localhost:5173") // Coloque o endereço do seu site Vue.js
+	        .allowedOrigins("https://rewardify.netlify.app/") // Coloque o endereço do seu site Vue.js
 	        .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS", "HEAD", "TRACE", "CONNECT");
 	}
 }
