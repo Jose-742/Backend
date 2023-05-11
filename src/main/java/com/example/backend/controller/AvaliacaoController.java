@@ -66,7 +66,7 @@ public class AvaliacaoController {
 		Projeto projeto = projetoService.findById(avaliacao.getProjeto().getId());
 		projeto.setStatus(Status.AVALIADO);
 		if(avaliacao.getNota() >= 6)
-			projeto.setPremio(premioService.findById(1L));	
+			projeto.setPremio(premioService.findById(avaliacao.getProjeto().getPremio().getId()));	
 		avaliacao.setProjeto(projeto);
 		avaliacao.setAvaliador(avaliador);
 		avaliacaoService.save(avaliacao);
@@ -80,10 +80,10 @@ public class AvaliacaoController {
 		Avaliador avaliador = avaliadorService.findById(avaliacao.getAvaliador().getId());
 		Projeto projeto = projetoService.findById(avaliacao.getProjeto().getId());
 		projeto.setStatus(Status.AVALIADO);
-		if(avaliacao.getNota() >= 6)
-			projeto.setPremio(premioService.findById(1L));	
-		else
-			projeto.setPremio(null);
+		if(avaliacao.getNota() >= 6) {
+			projeto.setPremio(premioService.findById(avaliacao.getProjeto().getPremio().getId()));	
+		}else {
+			projeto.setPremio(null);}
 		avaliacao.setProjeto(projeto);
 		avaliacao.setAvaliador(avaliador);
 		avaliacaoService.update(avaliacao);
